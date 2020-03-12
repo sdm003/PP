@@ -6,11 +6,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserJdbcDAO implements UserDAO {
+public class UserJdbcDaoImpl implements UserJdbcDao {
     private Connection connection;
 
-    public UserJdbcDAO(Connection connection) {
-        this.connection = connection;
+    public UserJdbcDaoImpl(Connection connection)  {
+        try{
+            this.connection = connection;
+            createTable();
+
+        }catch (SQLException e){
+        }
+    }
+    @Override
+    public void createTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.execute("create table if not exists users (id bigint auto_increment, name varchar(256), age integer , primary key (id))");
+        stmt.close();
     }
 
     @Override

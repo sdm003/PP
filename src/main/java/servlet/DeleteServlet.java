@@ -1,9 +1,8 @@
 package servlet;
 
-import model.User;
-import service.UserService;
 
-import javax.servlet.ServletException;
+import service.UserServiceImpl;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +11,15 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/delete"})
 public class DeleteServlet extends HttpServlet {
-    UserService service = UserService.getInstance();
+    UserServiceImpl service = UserServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        service.deleteUser(id);
+        if(req.getParameter("id")!=null){
+            int id = Integer.parseInt(req.getParameter("id"));
+            service.deleteUser(id);
+        }
         resp.sendRedirect(req.getContextPath() + "/menu");
+
     }
 }

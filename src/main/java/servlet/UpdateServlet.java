@@ -1,7 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,21 +12,26 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/update"})
 public class UpdateServlet extends HttpServlet {
-    UserService service = UserService.getInstance();
+    UserServiceImpl service = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", service.getAllUsers());
-        req.setAttribute("id", req.getParameter("id"));
+//        req.setAttribute("id", req.getParameter("id"));
+//        req.setAttribute("name", req.getParameter("name"));
+//        req.setAttribute("age", req.getParameter("age"));
         req.getServletContext().getRequestDispatcher("/update.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        int age = Integer.parseInt(req.getParameter("age"));
-        service.updateUser(new User(id, name, age));
-        resp.sendRedirect(req.getContextPath() + "/menu");
+        if(req.getParameter("name")!= null && req.getParameter("age")!=null){
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("name");
+            int age = Integer.parseInt(req.getParameter("age"));
+            service.updateUser(new User(id, name, age));
+        }
+            resp.sendRedirect(req.getContextPath() + "/menu");
+
     }
+
 }
