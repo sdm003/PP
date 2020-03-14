@@ -16,19 +16,16 @@ public class UpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("id", req.getParameter("id"));
-//        req.setAttribute("name", req.getParameter("name"));
-//        req.setAttribute("age", req.getParameter("age"));
         req.getServletContext().getRequestDispatcher("/update.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(req.getParameter("name")!= null && req.getParameter("age")!=null){
-            int id = Integer.parseInt(req.getParameter("id"));
+            long id = Long.parseLong(req.getParameter("id"));
             String name = req.getParameter("name");
             int age = Integer.parseInt(req.getParameter("age"));
-            service.updateUser(new User(id, name, age));
+            service.updateUser(new User(id,name, age));
         }
             resp.sendRedirect(req.getContextPath() + "/menu");
 

@@ -1,30 +1,40 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
 public class User {
 
-    private int id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "age")
     private int age;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, int age) {
         this.name = name;
         this.age = age;
     }
 
-    public User(int id, String name, int age) {
-        this(name, age);
+    public User(long id, String name, int age) {
         this.id = id;
+        this.name = name;
+        this.age = age;
     }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

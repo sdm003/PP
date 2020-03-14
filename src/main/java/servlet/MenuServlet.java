@@ -1,6 +1,5 @@
 package servlet;
 
-import model.User;
 import service.UserServiceImpl;
 
 import javax.servlet.ServletException;

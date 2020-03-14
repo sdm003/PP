@@ -9,8 +9,7 @@ public interface UserJdbcDao {
 
     void addUser(User user);
     List<User> getAllUsers();
-    void createTable() throws SQLException;
     void updateUser(User user);
-    void deleteUser(int id);
+    void deleteUser(long id);
 
 }

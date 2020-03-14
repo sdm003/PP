@@ -1,5 +1,7 @@
 package service;
 
+import dao.UserDaoFactory;
+import dao.UserJdbcDao;
 import dao.UserJdbcDaoImpl;
 import model.User;
 import util.DBHelper;
@@ -9,10 +11,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private static UserServiceImpl userServiceImpl;
-    private UserJdbcDaoImpl userJdbcDAO;
+    private UserDaoFactory factory;
 
     private UserServiceImpl() {
-        userJdbcDAO = new UserJdbcDaoImpl(DBHelper.getInstance().getConnection());
+        factory = new UserDaoFactory();
     }
 
     public static UserServiceImpl getInstance() {
@@ -23,19 +25,23 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public List<User> getAllUsers() {
-        return userJdbcDAO.getAllUsers();
+        return getUserDAO().getAllUsers();
     }
     @Override
     public void addUser(User user) {
-        userJdbcDAO.addUser(user);
+        getUserDAO().addUser(user);
     }
     @Override
     public void deleteUser(int id) {
-        userJdbcDAO.deleteUser(id);
+        getUserDAO().deleteUser(id);
     }
     @Override
     public void updateUser(User user) {
-        userJdbcDAO.updateUser(user);
+        getUserDAO().updateUser(user);
+    }
+
+    public UserJdbcDao getUserDAO() {
+        return factory.createUserDAO();
     }
 
 }
