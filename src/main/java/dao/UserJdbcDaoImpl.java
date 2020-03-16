@@ -9,8 +9,9 @@ import java.util.List;
 public class UserJdbcDaoImpl implements UserJdbcDao {
     private Connection connection;
 
-    public UserJdbcDaoImpl(Connection connection)  {
+    public UserJdbcDaoImpl(Connection connection) throws SQLException {
         this.connection = connection;
+        this.connection.setAutoCommit(false);
     }
 
     @Override
@@ -27,37 +28,43 @@ public class UserJdbcDaoImpl implements UserJdbcDao {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws SQLException {
         String query = "INSERT INTO users (name,age) VALUES (?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user.getName());
             stmt.setInt(2, user.getAge());
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(long id) throws SQLException {
         String query = "DELETE FROM users WHERE id=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setLong(1, id);
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(User user) throws SQLException {
         String query = "UPDATE users SET name=?, age=? WHERE id=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user.getName());
             stmt.setInt(2, user.getAge());
             stmt.setLong(3, user.getId());
             stmt.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }

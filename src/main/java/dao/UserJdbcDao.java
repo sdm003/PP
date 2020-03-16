@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UserJdbcDao {
 
-    void addUser(User user);
+    void addUser(User user) throws SQLException;
     List<User> getAllUsers();
-    void updateUser(User user);
-    void deleteUser(long id);
+    void updateUser(User user) throws SQLException;
+    void deleteUser(long id) throws SQLException;
 
 }
