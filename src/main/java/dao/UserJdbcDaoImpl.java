@@ -13,6 +13,7 @@ public class UserJdbcDaoImpl implements UserJdbcDao {
         this.connection = connection;
     }
 
+    
     @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
