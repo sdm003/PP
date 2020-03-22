@@ -3,12 +3,14 @@
 <html>
 <head></head>
 <title>Add User</title>
-<div id="Add">
-    <h1><c:out value="Add user new User"/> </h1>
-    <form action="<c:url value="/add"/>" method="post">
-        <p>Name <input type="text" name="name" ></p>
-        <p style="margin-left:7px;" id="age">Age<input style="margin-left:8px" type="number" name="age"></p>
-        <input type="submit" value="Add" style="margin-left: 175px">
+<div id="add">
+    <h1 style="margin-left: 45px">Add User</h1>
+    <form action="<c:url value="/admin/add"/>" method="post">
+        <p style="margin-left:11px">Name <input style="margin-left:12px" type="text" name="name"></p>
+        <p>Password <input type="text" name="password"></p>
+        <p style="margin-left:15px">Role <input style="margin-left:16px" type="text" name="role"></p>
+        <p style="margin-left:17px;">Age<input style="margin-left:20px" type="number" name="age"></p>
+        <input type="submit" value="Add" style="margin-left: 197px">
     </form>
 </div>
 </body>

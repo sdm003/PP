@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class UserHibernateDAO implements UserJdbcDao {
+public class UserHibernateDAO implements UserDao {
 
     private Session session;
 
@@ -44,6 +44,25 @@ public class UserHibernateDAO implements UserJdbcDao {
         session.update(user);
         transaction.commit();
         session.close();
+    }
+
+    @Override
+    public boolean validateUser(String name, String password) {
+        String hql = "SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u " +
+                "WHERE u.name=:name and u.password=:password";
+        Query query = session.createQuery(hql);
+        query.setParameter("name",name);
+        query.setParameter("password",password);
+        boolean validate = (boolean) query.uniqueResult();
+        return validate;
+    }
+
+    @Override
+    public String getUserRole(String name) {
+        String hql = "SELECT role FROM User WHERE name=:name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name",name);
+        return (String) query.uniqueResult();
     }
 
     public User getUserById(long id) {

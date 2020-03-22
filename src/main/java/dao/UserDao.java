@@ -1,16 +1,16 @@
-package service;
+package dao;
 
 import model.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public interface UserService {
+public interface UserDao {
 
+    void addUser(User user);
     List<User> getAllUsers();
-    void addUser(User user) ;
-    void deleteUser(int id) ;
-    void updateUser(User user) ;
+    void updateUser(User user);
+    void deleteUser(long id);
     boolean validateUser(String name, String password);
     String getUserRole(String name);
+
 }

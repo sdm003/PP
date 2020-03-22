@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -17,19 +17,27 @@ public class User {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "role")
+    private String role;
+
     public User() {
     }
 
-    public User(String name, int age) {
+    public User(String name, String password,  String role, int age) {
         this.name = name;
+        this.password = password;
+        this.role = role;
         this.age = age;
     }
 
-    public User(long id, String name, int age) {
+    public User(int id, String name, String password, String role, int age) {
+        this(name, password, role, age);
         this.id = id;
-        this.name = name;
-        this.age = age;
     }
+
     public long getId() {
         return id;
     }
@@ -52,5 +60,21 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

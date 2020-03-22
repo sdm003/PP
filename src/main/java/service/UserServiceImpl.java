@@ -1,10 +1,8 @@
 package service;
 
 import dao.UserDaoFactory;
-import dao.UserJdbcDao;
-import dao.UserJdbcDaoImpl;
+import dao.UserDao;
 import model.User;
-import util.DBHelper;
 
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class UserServiceImpl implements UserService {
         }
         return userServiceImpl;
     }
+
     @Override
     public List<User> getAllUsers() {
         return getUserDAO().getAllUsers();
@@ -35,13 +34,24 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         getUserDAO().deleteUser(id);
     }
+
     @Override
     public void updateUser(User user) {
         getUserDAO().updateUser(user);
     }
 
-    public UserJdbcDao getUserDAO() {
+    public UserDao getUserDAO() {
         return factory.createUserDAO();
+    }
+
+    @Override
+    public boolean validateUser(String name, String password) {
+        return getUserDAO().validateUser(name,password);
+    }
+
+    @Override
+    public String getUserRole(String name) {
+        return getUserDAO().getUserRole(name);
     }
 
 }

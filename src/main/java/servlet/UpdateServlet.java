@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/update"})
+@WebServlet(urlPatterns = {"/admin/update"})
 public class UpdateServlet extends HttpServlet {
     UserServiceImpl service = UserServiceImpl.getInstance();
 
@@ -21,14 +21,16 @@ public class UpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if(req.getParameter("name")!= null && req.getParameter("age")!=null){
-            long id = Long.parseLong(req.getParameter("id"));
-            String name = req.getParameter("name");
-            int age = Integer.parseInt(req.getParameter("age"));
-            service.updateUser(new User(id,name, age));
-        }
-            resp.sendRedirect(req.getContextPath() + "/menu");
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        int age = Integer.parseInt(req.getParameter("age"));
 
+        if (!name.isEmpty() && !password.isEmpty() && !role.isEmpty() && age > 0) {
+            service.updateUser(new User(id, name, password, role, age));
+            resp.sendRedirect(req.getContextPath() + "/admin");
+        }
     }
 
 }

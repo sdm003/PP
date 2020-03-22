@@ -11,13 +11,13 @@ public class UserDaoFactory {
     private DBHelper helper = DBHelper.getInstance();
     private SessionFactory sessionFactory = helper.getSessionFactory();
 
-    public UserJdbcDao createUserDAO() {
+    public UserDao createUserDAO() {
         Properties properties = new Properties();
         try (InputStream is = this.getClass().getResourceAsStream("/config.properties")) {
             properties.load(is);
             switch (properties.getProperty("typeOfDao")) {
                 case "jdbc":
-                    return new UserJdbcDaoImpl(helper.getConnection());
+                    return new UserJDBCDao(helper.getConnection());
                 case "hibernate":
                     return new UserHibernateDAO(sessionFactory.openSession());
             }

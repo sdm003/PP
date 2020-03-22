@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/delete"})
+@WebServlet(urlPatterns = {"/admin/delete"})
 public class DeleteServlet extends HttpServlet {
     UserServiceImpl service = UserServiceImpl.getInstance();
 
@@ -19,7 +19,6 @@ public class DeleteServlet extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             service.deleteUser(id);
         }
-        resp.sendRedirect(req.getContextPath() + "/menu");
-
+        resp.sendRedirect(req.getContextPath() + "/admin");
     }
 }
