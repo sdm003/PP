@@ -12,6 +12,12 @@
             left: 750px;
             top: -10px  ;
         }
+
+        #delete {
+            position: absolute;
+            left: 1000px;
+            top: -10px  ;
+        }
     </style>
 </head>
 <body>
@@ -24,7 +30,6 @@
         <th width="100">Role</th>
         <th width="100">Age</th>
         <th width="55"></th>
-        <th width="50"></th>
     </tr>
     <c:forEach items="${users}" var="user">
         <tr>
@@ -43,23 +48,25 @@
                     <input type="submit" value="Update">
                 </form>
             </td>
-            <td>
-                <form action="<c:url value="/admin/delete"/>" method="post">
-                    <input type="hidden" name="id" value="${user.getId()}">
-                    <input type="submit" value="Delete">
-                </form>
-            </td>
         </tr>
     </c:forEach>
 </table>
+
 <div id="add">
-    <h1 style="margin-left: 45px">Add User</h1>
+    <h1 style="margin-top: 20px">Add User</h1>
     <form action="<c:url value="/admin/add"/>" method="get">
-        <input type="submit" value="Add" style="margin-left: 197px">
+        <input type="submit" value="Add">
     </form>
 </div>
 
-<form  style="margin-top: 20px" method="post" action="/logout">
+<div id="delete">
+    <h1 style="margin-top: 20px">Delete User</h1>
+    <form action="<c:url value="/admin/delete"/>" method="get">
+        <input type="submit" value="DELETE">
+    </form>
+</div>
+
+<form  style="margin-top: 20px" method="get" action="/login">
     <input type="submit" value="Logout"/>
 </form>
 </body>

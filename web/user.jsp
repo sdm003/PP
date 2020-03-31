@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1><c:out value="${name}"/></h1>
-<form method="post" action="/logout">
+<form method="post" action="/login">
     <input type="submit" value="Logout"/>
 </form>
 </body>

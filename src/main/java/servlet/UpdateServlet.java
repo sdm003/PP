@@ -29,8 +29,8 @@ public class UpdateServlet extends HttpServlet {
 
         if (!name.isEmpty() && !password.isEmpty() && !role.isEmpty() && age > 0) {
             service.updateUser(new User(id, name, password, role, age));
-            resp.sendRedirect(req.getContextPath() + "/admin");
         }
+        resp.sendRedirect(req.getContextPath() + "/admin");
     }
 
 }

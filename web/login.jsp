@@ -7,7 +7,7 @@
     </style>
 </head>
 <body>
-<form action="/menu" method="post">
+<form action="<c:url value="/login"/>" method="get">
     Name <input type="text" name="name">
     Password <input type="password" name="password">
     <input type="submit" value="submit">

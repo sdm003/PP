@@ -28,7 +28,10 @@ public class AddServlet extends HttpServlet {
         String password = req.getParameter("password");
         String role = req.getParameter("role");
         int age = Integer.parseInt(req.getParameter("age"));
-        service.addUser(new User(name, password, role, age));
+
+        if (!name.isEmpty() && !password.isEmpty() && !role.isEmpty() && age > 0) {
+            service.addUser(new User(name, password, role, age));
+        }
         resp.sendRedirect(req.getContextPath() + "/admin");
     }
 }
