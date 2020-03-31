@@ -1,19 +1,20 @@
 package service;
 
-import dao.UserDaoFactory;
-import dao.UserDao;
+import dao.*;
+import dao.factory.UserDaoFactory;
+import dao.factory.UserDaoFactoryHibernate;
+import dao.factory.UserDaoFactoryJDBC;
 import model.User;
-
+import util.DBHelper;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
     private static UserServiceImpl userServiceImpl;
-    private UserDaoFactory factory;
+    private UserDaoFactory userDaoFactory = DBHelper.getUserDaoByConfig();
+    private UserDao userDao;
 
-    private UserServiceImpl() {
-        factory = new UserDaoFactory();
-    }
+    private UserServiceImpl() {userDao = userDaoFactory.createUserDAO();}
 
     public static UserServiceImpl getInstance() {
         if (userServiceImpl == null) {
@@ -24,34 +25,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return getUserDAO().getAllUsers();
+        return userDao.getAllUsers();
     }
     @Override
     public void addUser(User user) {
-        getUserDAO().addUser(user);
+        userDao.addUser(user);
     }
     @Override
     public void deleteUser(int id) {
-        getUserDAO().deleteUser(id);
+        userDao.deleteUser(id);
     }
 
     @Override
     public void updateUser(User user) {
-        getUserDAO().updateUser(user);
-    }
-
-    public UserDao getUserDAO() {
-        return factory.createUserDAO();
+        userDao.updateUser(user);
     }
 
     @Override
     public boolean validateUser(String name, String password) {
-        return getUserDAO().validateUser(name,password);
+        return userDao.validateUser(name,password);
     }
 
     @Override
     public String getUserRole(String name) {
-        return getUserDAO().getUserRole(name);
+        return userDao.getUserRole(name);
     }
 
 }

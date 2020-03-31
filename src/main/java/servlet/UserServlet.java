@@ -23,6 +23,6 @@ public class UserServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         if (session != null)
             session.invalidate();
-        resp.sendRedirect(req.getContextPath() + "/menu");
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 }
